@@ -3,7 +3,7 @@ defmodule ExrmDocker.Mixfile do
 
   def project do
     [app: :exrm_docker,
-     version: "0.0.1",
+     version: "0.0.2",
      elixir: "~> 1.2",
      description: description,
      package: package,
@@ -27,7 +27,7 @@ defmodule ExrmDocker.Mixfile do
   end
 
   defp package do
-    [files: ["lib", "mix.exs", "README.md", "LICENSE"],
+    [files: ["lib", "mix.exs", "README.md", "LICENSE", "config"],
      maintainers: ["Kevin W. van Rooijen"],
      licenses: ["GPL3"],
      links: %{"GitHub": "https://github.com/kwrooijen/exrm_docker"}]

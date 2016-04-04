@@ -27,7 +27,7 @@ Check below for configuration options.
 #### Add exrm_docker to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:exrm_docker, "~> 0.0.1"}]
+          [{:exrm_docker, "~> 0.0.2"}]
         end
 
 
