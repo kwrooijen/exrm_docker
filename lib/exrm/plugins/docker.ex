@@ -8,7 +8,7 @@ defmodule ReleaseManager.Plugin.ExrmDocker do
 
   def after_release(_config), do: nil
 
-  def after_package(%{docker: true} = config) do
+  def after_package(%{docker: true} = _config) do
     ExrmDocker.build
   end
   def after_package(_config), do: nil
