@@ -33,12 +33,12 @@ Check below for configuration options.
 
 ## exrm_docker config.exs
 
- Key        | Default         | Description
------------ | --------------- | -----------------------------------
- image      | "centos"        | Which image to use
- version    | nil             | Which image version to use
- maintainer | nil             | Image maintainer
- copy_rel   | "COPY rel /rel" | Copy the release to the container
- pre_copy   | nil             | Any Dockerfile commands before copy
- post_copy  | nil             | Any Dockerfile commands after copy
- entrypoint | nil             | Entrypoint of the image
+ Key        | Default                                      | Description
+----------- | -------------------------------------------- | -----------------------------------
+ image      | centos                                       | Which image to use
+ version    | nil                                          | Which image version to use
+ maintainer | nil                                          | Image maintainer
+ copy_rel   | COPY rel /rel                                | Copy the release to the container
+ pre_copy   | nil                                          | Any Dockerfile commands before copy
+ post_copy  | nil                                          | Any Dockerfile commands after copy
+ entrypoint | ENTRYPOINT ["rel/#{project}/bin/#{project}"] | Entrypoint of the image
