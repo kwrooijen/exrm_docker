@@ -84,12 +84,18 @@ defmodule ExrmDocker do
     File.write(@dockerfile, dockerfile_contents)
   end
 
-  @spec docker_output(port) :: :ok
-  defp docker_output(port) do
+  @spec docker_output(port, String.t | nil) :: :ok
+  defp docker_output(port, last \\ nil) do
     receive do
       {^port, {:data, {_, data}}} ->
-        IO.puts(data)
-        docker_output(port)
+        if data |> String.contains?("\r") do
+          IO.write(data)
+          docker_output(port, data)
+        else
+          if last, do: IO.puts(last)
+          IO.puts(data)
+          docker_output(port)
+        end
       {^port, {:exit_status, _}} ->
         :ok
     end
