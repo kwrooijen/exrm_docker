@@ -12,7 +12,7 @@ defmodule ExrmDocker do
 
   defstruct [:from, :maintainer, :entrypoint, :copy_rel, :pre_copy, :post_copy]
 
-  @build_path "_build/exrm_docker"
+  @build_path Path.join(["_build", "exrm_docker"])
   @dockerfile Path.join([@build_path, "Dockerfile"])
   @docker_command "docker build -f #{@dockerfile} ."
   @port_opts [:stderr_to_stdout, :exit_status, :binary, {:line, 255}]
