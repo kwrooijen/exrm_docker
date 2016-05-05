@@ -14,7 +14,6 @@ defmodule ExrmDocker do
 
   @build_path Path.join(["_build", "exrm_docker"])
   @dockerfile Path.join([@build_path, "Dockerfile"])
-  @docker_command "docker build -f #{@dockerfile} ."
   @port_opts [:stderr_to_stdout, :exit_status, :binary, {:line, 255}]
 
   @doc """
