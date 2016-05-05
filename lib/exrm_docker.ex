@@ -21,9 +21,9 @@ defmodule ExrmDocker do
   Build a Docker image and add the application release.
   This will open a port process and display the `docker build` output.
   """
-  @spec build :: :ok
-  def build do
-    port = Port.open({:spawn, @docker_command}, @port_opts)
+  @spec build(String.t) :: :ok
+  def build(tag) do
+    port = Port.open({:spawn, "docker build -f #{@dockerfile} -t #{tag} ."}, @port_opts)
     docker_output(port)
   end
 
