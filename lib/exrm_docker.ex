@@ -111,8 +111,21 @@ defmodule ExrmDocker do
   defp build_maintainer(maintainer), do: "MAINTAINER #{maintainer}"
 
   @spec build_entrypoint(String.t | nil, String.t, String.t) :: String.t
-  defp build_entrypoint(nil, project, nil), do: "ENTRYPOINT [\"/rel/#{project}/bin/#{project}\"]"
-  defp build_entrypoint(nil, project, args), do: "ENTRYPOINT [\"/rel/#{project}/bin/#{project} #{args}\"]"
+  defp build_entrypoint(nil, project, nil) do
+    "ENTRYPOINT [\"/rel/#{project}/bin/#{project}\"]"
+  end
+
+  defp build_entrypoint(nil, project, args) when is_binary(args) do
+    build_entrypoint(nil, project, [args])
+  end
+
+  defp build_entrypoint(nil, project, args) when is_list(args) do
+    args = args
+    |> Enum.map(&("\"#{&1}\""))
+    |> Enum.join(", ")
+    "ENTRYPOINT [\"/rel/#{project}/bin/#{project}\", #{args}]"
+  end
+
   defp build_entrypoint("ENTRYPOINT" <> _rest = entrypoint, _, _args), do: entrypoint
   defp build_entrypoint(entrypoint, _, _args), do: "ENTRYPOINT #{entrypoint}"
 end

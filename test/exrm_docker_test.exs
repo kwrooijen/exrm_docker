@@ -57,7 +57,22 @@ defmodule ExrmDockerTest do
 
     COPY rel /rel
 
-    ENTRYPOINT [\"/rel/my_project/bin/my_project console\"]
+    ENTRYPOINT [\"/rel/my_project/bin/my_project\", \"console\"]
+    """
+    {:ok, result} = File.read("_build/exrm_docker/Dockerfile")
+    assert expected == result
+  end
+
+  test "Create Dockerfile with multiple arguments" do
+    Application.put_env(:exrm_docker, :entrypoint_args, ["console", "foo"])
+    ExrmDocker.build_dockerfile("my_project")
+    expected = """
+    FROM centos
+
+
+    COPY rel /rel
+
+    ENTRYPOINT [\"/rel/my_project/bin/my_project\", \"console\", \"foo\"]
     """
     {:ok, result} = File.read("_build/exrm_docker/Dockerfile")
     assert expected == result

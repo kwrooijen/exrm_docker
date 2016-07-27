@@ -39,7 +39,7 @@ Check below for configuration options.
 #### Add exrm_docker to your list of dependencies in `mix.exs`:
 ```elixir
   def deps do
-    [{:exrm_docker, "~> 0.2.0"}]
+    [{:exrm_docker, "~> 0.2.1"}]
   end
 ```
 ## exrm_docker config.exs
