@@ -28,7 +28,8 @@ config :exrm_docker,
   copy_rel: "COPY rel /rel",
   pre_copy: nil,
   post_copy: nil,
-  entrypoint: nil
+  entrypoint: nil,
+  entrypoint_args: nil
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

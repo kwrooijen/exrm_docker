@@ -8,7 +8,8 @@ defmodule ExrmDockerTest do
            copy_rel: "COPY rel /rel",
            pre_copy: nil,
            post_copy: nil,
-           entrypoint: nil
+           entrypoint: nil,
+           entrypoint_args: nil
 
   setup do
     reset_env
@@ -42,6 +43,21 @@ defmodule ExrmDockerTest do
     COPY rel /rel
     EXPOSE 80 443
     ENTRYPOINT [\"/rel/my_project/bin/my_project\"]
+    """
+    {:ok, result} = File.read("_build/exrm_docker/Dockerfile")
+    assert expected == result
+  end
+
+  test "Create Dockerfile with argument" do
+    Application.put_env(:exrm_docker, :entrypoint_args, "console")
+    ExrmDocker.build_dockerfile("my_project")
+    expected = """
+    FROM centos
+
+
+    COPY rel /rel
+
+    ENTRYPOINT [\"/rel/my_project/bin/my_project console\"]
     """
     {:ok, result} = File.read("_build/exrm_docker/Dockerfile")
     assert expected == result

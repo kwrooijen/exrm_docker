@@ -39,17 +39,18 @@ Check below for configuration options.
 #### Add exrm_docker to your list of dependencies in `mix.exs`:
 ```elixir
   def deps do
-    [{:exrm_docker, "~> 0.1.0"}]
+    [{:exrm_docker, "~> 0.2.0"}]
   end
 ```
 ## exrm_docker config.exs
 
- Key        | Default                                      | Description
------------ | -------------------------------------------- | -----------------------------------
- image      | centos                                       | Which image to use
- version    | nil                                          | Which image version to use
- maintainer | nil                                          | Image maintainer
- copy_rel   | COPY rel /rel                                | Copy the release to the container
- pre_copy   | nil                                          | Any Dockerfile commands before copy
- post_copy  | nil                                          | Any Dockerfile commands after copy
- entrypoint | ENTRYPOINT ["rel/#{project}/bin/#{project}"] | Entrypoint of the image
+ Key             | Default                                      | Description
+---------------- | -------------------------------------------- | ---------------------------------------------------
+ image           | centos                                       | Which image to use
+ version         | nil                                          | Which image version to use
+ maintainer      | nil                                          | Image maintainer
+ copy_rel        | COPY rel /rel                                | Copy the release to the container
+ pre_copy        | nil                                          | Any Dockerfile commands before copy
+ post_copy       | nil                                          | Any Dockerfile commands after copy
+ entrypoint      | ENTRYPOINT ["rel/#{project}/bin/#{project}"] | Entrypoint of the image
+ entrypoint_args | nil                                          | Arguments to use for the entrypoint, e.g. 'console'

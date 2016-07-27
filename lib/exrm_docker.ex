@@ -55,13 +55,14 @@ defmodule ExrmDocker do
     copy_rel = Application.get_env(:exrm_docker, :copy_rel, "COPY rel /rel")
     post_copy = Application.get_env(:exrm_docker, :post_copy, nil)
     entrypoint = Application.get_env(:exrm_docker, :entrypoint, nil)
+    entrypoint_args = Application.get_env(:exrm_docker, :entrypoint_args, nil)
     %ExrmDocker{
       from: build_from(image, version),
       maintainer: build_maintainer(maintainer),
       pre_copy: pre_copy,
       copy_rel: copy_rel,
       post_copy: post_copy,
-      entrypoint: build_entrypoint(entrypoint, project),
+      entrypoint: build_entrypoint(entrypoint, project, entrypoint_args)
     }
   end
 
@@ -109,8 +110,9 @@ defmodule ExrmDocker do
   defp build_maintainer("MAINTAINER" <> _rest = maintainer), do: maintainer
   defp build_maintainer(maintainer), do: "MAINTAINER #{maintainer}"
 
-  @spec build_entrypoint(String.t | nil, String.t) :: String.t
-  defp build_entrypoint(nil, project), do: "ENTRYPOINT [\"/rel/#{project}/bin/#{project}\"]"
-  defp build_entrypoint("ENTRYPOINT" <> _rest = entrypoint, _), do: entrypoint
-  defp build_entrypoint(entrypoint, _), do: "ENTRYPOINT #{entrypoint}"
+  @spec build_entrypoint(String.t | nil, String.t, String.t) :: String.t
+  defp build_entrypoint(nil, project, nil), do: "ENTRYPOINT [\"/rel/#{project}/bin/#{project}\"]"
+  defp build_entrypoint(nil, project, args), do: "ENTRYPOINT [\"/rel/#{project}/bin/#{project} #{args}\"]"
+  defp build_entrypoint("ENTRYPOINT" <> _rest = entrypoint, _, _args), do: entrypoint
+  defp build_entrypoint(entrypoint, _, _args), do: "ENTRYPOINT #{entrypoint}"
 end
