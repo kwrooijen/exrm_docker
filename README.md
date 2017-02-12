@@ -1,3 +1,9 @@
+# DEPRECATED
+
+This package is no longer under support. 
+The release tool this package is based off of ([exrm](https://github.com/bitwalker/exrm)) is deprecated and replaced by [distillery](https://github.com/bitwalker/distillery).
+Instead you should use [mix_docker](https://github.com/Recruitee/mix_docker) which makes use of Distillery.
+
 # ExrmDocker
 
 Create a Docker image from your Elixir release
